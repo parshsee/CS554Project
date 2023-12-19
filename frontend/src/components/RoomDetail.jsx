@@ -20,11 +20,11 @@ const RoomDetail = () => {
         {/* Room Header Content */}
         <h1>Room Name</h1>
         {/* Other controls */}
-      </div>
-      <div className="music-player">
+        <div className="music-player">
         <div>
-        <WebPlayback token={ window.localStorage.getItem('access_token') } />
+          <WebPlayback token={ window.localStorage.getItem('access_token') } />
         </div>
+      </div>
       </div>
       <div className="chat-box">
         <div className="messages">

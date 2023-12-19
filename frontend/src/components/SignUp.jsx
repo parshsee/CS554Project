@@ -18,6 +18,57 @@ function SignUp() {
     e.preventDefault();
     const { displayName, email, passwordOne, passwordTwo } = e.target.elements;
 
+    let nameValid = displayName.value.trim()
+    if (nameValid.length === 0)
+      alert(`Name cannot be an empty string or string with just spaces`);
+
+        if(!nameValid.match(/^[a-z ,.'-]+$/gi)){
+          alert(`Name shouldn't contain numbers`)
+        }
+        if(!(nameValid.length>1 & nameValid.length<25)){
+          alert(`Name should contain atleast 2 characters and less than 26 characters`)
+        }
+
+    let emailValid = email.value.trim().toLowerCase();
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!regex.test(emailValid)) {
+      alert("Invalid email address");
+    }
+    if (!emailValid.endsWith("@gmail.com")) {
+      alert("Email domain must be @gmail.com");
+    }
+    if (!/^[^\s@]{3,}@gmail\.com$/.test(emailValid)) {
+      alert("Email address must have at least 3 characters before the @gmail.com domain");
+    }
+
+    let passowrdValid = passwordOne.value
+    if (!passowrdValid || passowrdValid.length < 8 || passowrdValid.includes(" ")) {
+      alert(`Password must be at least 8 characters long and cannot contain empty spaces.`);
+    }
+    const upperCase = /[A-Z]/;
+    const numberCase = /[0-9]/;
+    const specialCharCase = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+    if (
+      !upperCase.test(passowrdValid) ||
+      !numberCase.test(passowrdValid) ||
+      !specialCharCase.test(passowrdValid)
+    ) {
+      alert(`Confirm Password must contain at least one uppercase character, one number, and one special character.`);
+    }
+
+    passowrdValid = passwordTwo.value
+    if (!passowrdValid || passowrdValid.length < 8 || passowrdValid.includes(" ")) {
+      alert(`Password must be at least 8 characters long and cannot contain empty spaces.`);
+    }
+
+    if (
+      !upperCase.test(passowrdValid) ||
+      !numberCase.test(passowrdValid) ||
+      !specialCharCase.test(passowrdValid)
+    ) {
+      alert(`Password must contain at least one uppercase character, one number, and one special character.`);
+    }
+
     if (passwordOne.value !== passwordTwo.value) {
       setPwMatch('Passwords do not match');
       alert('Passwords do not match')

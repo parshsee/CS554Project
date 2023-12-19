@@ -1,0 +1,134 @@
+/* Main container to use flex display for better control over child elements */
+.room-detail-container {
+    display: flex;
+    flex-direction: column; /* Stack components vertically */
+    height: 100vh; /* Full height of the viewport */
+    background: #121212; /* Dark background for a music-themed app */
+  }
+  
+  /* Header section with room title and host message */
+  .room-header {
+    padding: 20px;
+    background: #1db954; /* Spotify green for branding */
+    color: white;
+    text-align: center;
+  }
+  
+  /* Music player section to be at the center */
+  .music-player {
+    flex-grow: 1; /* Take up all available space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  /* Chat box to slide in and out, positioned at the bottom right */
+  .chat-box {
+    position: absolute; /* Absolute positioning to place it over other content */
+    bottom: 0; /* Align to the bottom */
+    right: 0; /* Align to the right of the screen */
+    width: 300px; /* Set a fixed width for the chat box */
+    background: #2c2f33; /* Discord-like dark grey for the chat */
+    color: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5); /* Shadow to lift chat box off the page */
+    z-index: 1000; /* Ensure it's above other content */
+    transition: transform 0.3s ease; /* Smooth transition for sliding in/out */
+  }
+  
+  /* Adjust chat-box position for smaller screens */
+  @media (max-width: 600px) {
+    .chat-box {
+      width: 100%; /* Full width on small screens */
+      bottom: 0; /* Stick to the bottom */
+    }
+  }
+  
+  /* Message area styles */
+  .messages {
+    overflow-y: auto; /* Allow scrolling */
+    max-height: 300px; /* Limit height and allow for scrolling */
+    padding: 10px;
+  }
+  
+  /* Individual message styling */
+  .message {
+    background: #40444b; /* Slightly lighter grey for message bubbles */
+    padding: 8px 12px;
+    border-radius: 16px; /* Rounded corners for message bubbles */
+    margin-bottom: 10px; /* Space between messages */
+    max-width: 80%; /* Max width for message bubbles */
+    word-wrap: break-word; /* Prevent long words from overflowing */
+  }
+  
+  /* Style for the name (sender) of the message */
+  .message .sender {
+    font-weight: bold;
+    color: #00b0f4; /* Light blue color for the sender's name for emphasis */
+  }
+  
+  /* Input area styling */
+  .message-input {
+    border-top: 1px solid #4b4d52; /* Separator for the input area */
+    padding: 10px;
+    display: flex;
+  }
+  
+  /* Input field styles */
+  .message-input input {
+    flex-grow: 1; /* Allow input to grow and fill space */
+    margin-right: 10px; /* Space between input and send button */
+    padding: 10px;
+    border: 1px solid #4b4d52; /* Style border to match the theme */
+    background: #333; /* Slightly lighter background for the input field */
+    color: white;
+    border-radius: 4px; /* Rounded corners for the input field */
+  }
+  
+  /* Send button styles */
+  .message-input button {
+    padding: 10px 20px;
+    border: none;
+    background: #1db954; /* Spotify green for the send button */
+    color: white;
+    border-radius: 4px; /* Rounded corners for the button */
+    cursor: pointer;
+    transition: background-color 0.2s ease; /* Transition for button interaction */
+  }
+  
+  /* Hover and focus states for input and button */
+  .message-input input:hover,
+  .message-input input:focus,
+  .message-input button:hover,
+  .message-input button:focus {
+    background: #1db954; /* Spotify green for hover/focus states */
+    outline: none; /* Remove default outline */
+  }
+  
+  /* Input placeholder color */
+  .message-input input::placeholder {
+    color: #aaa; /* Light grey for placeholder text */
+  }
+  
+  /* Responsive adjustments for better mobile experience */
+  @media (max-width: 768px) {
+    /* Stack music player and chat vertically on smaller screens */
+    .room-detail-container {
+      flex-direction: column-reverse; /* Chat box on top when stacked */
+    }
+    
+    .music-player {
+      padding: 10px;
+      flex-grow: 0; /* Do not grow; adapt to content */
+    }
+    
+    .chat-box {
+      width: 100%; /* Full width for chat box */
+      height: 50vh; /* Limit height to half of the viewport */
+    }
+    
+    .messages {
+      max-height: calc(50vh - 60px); /* Adjust height based on chat-box height */
+    }
+  }
+  

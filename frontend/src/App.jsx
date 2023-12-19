@@ -1,5 +1,5 @@
 import "../src/App.css"
-import React from 'react';
+import React,{useRef, useState, useEffect} from 'react';
 import {Route, Routes} from 'react-router-dom';
 import SignIn from './components/SignIn'
 import SignUp from './components/SignUp'
@@ -11,7 +11,10 @@ import {AuthProvider} from './context/AuthContext';
 import RoomDetail from "./components/RoomDetail";
 
 
+
 function App() {
+
+
   return (
     <AuthProvider>
       <div className='App'>
@@ -24,7 +27,7 @@ function App() {
           <Route path='/signin' element={<SignIn />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path='/signout' element={<SignOut />} />
-          <Route path='/rooms/:id' element={<RoomDetail />} />
+          <Route path='/rooms/:roomId' element={<RoomDetail />} />
           {/* <Route path='/*' element={<Landing />} /> */}
         </Routes>
       </div>

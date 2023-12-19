@@ -87,6 +87,15 @@ const getUserById = async (id) => {
     return user;
 };
 
+const getUserByEmailForLogin = async (email) => {
+    
+  const userCollection = await users();
+  const user = await userCollection.findOne({ email: email });
+  
+  
+  return user;
+};
+
 const getUserByEmail = async (email) => {
     
     const userCollection = await getAllUsers();;
@@ -107,5 +116,6 @@ export{
     createUser,
     getAllUsers,
     getUserById,
+    getUserByEmailForLogin,
     getUserByEmail
 }

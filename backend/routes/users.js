@@ -5,6 +5,35 @@ import { users } from "../config/mongoCollection.js";
 import * as userData from '../data/users.js'
 import bcryptjs from 'bcryptjs';
 import xss from 'xss';
+import redis from 'redis';
+
+const client = redis.createClient();
+client.connect().then(() => {});
+
+router.post("/login", async (req, res) => {
+    try {
+      console.log("req", req.body);
+      const email_input = req.body.email;
+      console.log("login user route");
+      const user = await userData.getUserByEmailForLogin(email_input);
+      const userId = user._id
+      console.log("session data login",req.session)
+      if (user) {
+        console.log("User Found:", user);
+        await client.set('userId', JSON.stringify(userId));
+        let stored_user = await client.get('userId');
+        console.log("stored",stored_user)
+        return res.status(200).json({ userId });
+      } else {
+        console.log("User not found");
+        return res.status(404).json({ error: "Please Register to login" });
+      }
+    } catch (e) {
+      res.status(500).json({ error: e });
+    }
+  });
+
+  
 router.post("/signUpUser", async (req,res) => {
         try{
             console.log("sign up route")
@@ -46,7 +75,10 @@ router.post("/signup", async (req, res) => {
     try {
       console.log(email);
         const newUser = await userData.createUser(xss(name), xss(email));
-        req.session.user = {...req.session.user, _id: newUser._id.toString()};
+        req.session.user = {
+            id: newUser._id.toString(),
+        }
+        // req.session.user = {...req.session.user, _id: newUser._id.toString()};
         console.log(req.session.user);
         return res.status(200).json({_id: newUser._id, name: newUser.name, email: newUser.email});gi 
     } catch (e) {

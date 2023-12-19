@@ -176,6 +176,7 @@ import querystring from 'querystring';
 import axios from 'axios'; // Axios library
 import dotenv from 'dotenv';
 import xss from 'xss';
+import * as userData from '../../data/users.js'
 
 dotenv.config();
 const CLIENT_ID = process.env.CLIENT_ID // Your client id
@@ -283,7 +284,7 @@ router.get('/callback', async (req, res) => {
         if (!req.session.user) {
           req.session.user = {};
         }
-
+        console.log(req.session.user);
         // Storing access_token and refresh token in session
         req.session.user={...req.session.user, access_token, refresh_token};
 
@@ -343,38 +344,6 @@ router.get('/dashboard', (req, res) => {
     res.redirect("/");
   }
 });
-
-// router.get('/logout', async (req, res) => {
-//   try {
-//     const refresh_token = req.session.user?.access_token;
-//     console.log("logout route", req.session)
-
-//     if (!refresh_token) {
-//       return res.status(400).json({ message: 'User not authenticated' });
-//     }
-
-//     const response = await axios.post('https://accounts.spotify.com/api/token/revoke', null, {
-//       params: {
-//         token: refresh_token,
-//         token_type_hint: 'refresh_token',
-//         client_id: CLIENT_ID,
-//         client_secret: CLIENT_SECRET,
-//       },
-//     });
-//     console.log(response)
-
-//     req.session.destroy((err) => {
-//       if (err) {
-//         console.error('Error destroying session:', err);
-//       }
-//     });
-
-//     res.status(200).json({ message: 'Logout successful' });
-//   } catch (error) {
-//     console.error('Logout error:', error);
-//     res.status(500).json({ message: 'Internal server error' });
-//   }
-// });
 
 export default router;
 

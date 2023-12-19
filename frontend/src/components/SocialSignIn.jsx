@@ -9,13 +9,17 @@ const SocialSignIn = () => {
       const user = JSON.parse(localStorage.getItem('user'));
       console.log(user);
       const userData = {
-        name: user.displayName || 'Default Name', // Default name if displayName is not available
+        name: user.displayName || 'Default Name',
         email: user.email
       };
 
       console.log("Entering user data to database");
         
       await axios.post('http://localhost:3000/usersData/signup', userData);
+      await axios.post('http://localhost:3000/usersData/login', {
+        email: user.email,
+      });
+
     } catch (error) {
       alert(error);
     }

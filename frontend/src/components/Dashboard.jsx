@@ -17,6 +17,9 @@ function Dashboard() {
     setModalOpen(false);
   };
   const { currentUser } = useContext(AuthContext);
+
+  console.log('my current user set is:::')
+  console.log(currentUser)
   const [accessToken, setAccessToken] = useState(undefined);
   const [loading, setLoading] = useState(false);
 
@@ -71,8 +74,8 @@ function Dashboard() {
     try {
       const { data } = await axios.get('http://localhost:3000/usersData/logout');
       //setAccessToken(undefined);
-      window.localStorage.removeItem('access_token');
-      window.location.removeItem('user');
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('user');
     } catch (e) {
       console.error(e);
     }
@@ -119,15 +122,16 @@ function Dashboard() {
       )} */}
       {accessToken && (
         <>
-          <h5>You're Logged into Spotify. Wanna Logout? Click Below</h5>
-          <img
+          <h5>Wanna Logout? Click Below</h5>
+          {/* <img
             onClick={() => spotifyLogout()}
             alt='spotify signin'
             src='/imgs/btn_spotify_logout.png'
-          />
+          /> */}
+          <SignOut />
         </>
       )}
-      <SignOut />
+      
     </div>
   );
 }

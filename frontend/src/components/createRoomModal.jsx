@@ -49,7 +49,7 @@ function CreateRoomModal(props) {
     const navigate = useNavigate();
     
     const [roomName, setRoomName] = useState(
-      props.currentUser ? `${props.currentUser.displayName}'s Room` : "New Room"
+      props.currentUser ? `${props.currentUser.displayName}'s Room` : "My Room"
     );
     
   const [isPublic, setIsPublic] = useState(true);

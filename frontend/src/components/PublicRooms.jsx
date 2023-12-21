@@ -1,54 +1,39 @@
-// PublicRooms.js
 import React from 'react';
-import { Modal, Typography, Card, CardContent, Button } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import { Typography, Card, CardContent } from '@mui/material';
 
-function PublicRooms({ publicRooms, onClose, onCardClick }) {
+function PublicRooms({ publicRooms, onCardClick }) {
   return (
-    <Modal open={!!publicRooms} onClose={onClose}>
+    <div className='card' style={{ maxWidth: '800px', margin: '20px auto', overflowY: 'auto', display: 'flex', flexWrap: 'wrap', gap: '10px', justifyContent: 'center' }}>
       {publicRooms && publicRooms.length > 0 ? (
-        <div style={{ backgroundColor: 'white', padding: '20px', maxWidth: '800px', margin: 'auto', marginTop: '50px', overflowY: 'auto', maxHeight: '800px', display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-          <Button
-            onClick={onClose}
-            style={{ position: 'absolute', top: '5px', right: '5px', minWidth: 0, maxWidth: 10, padding: 20 }}
-            size="small"
+        publicRooms.map(room => (
+          <Card
+            key={room._id}
+            variant="outlined"
+            onClick={() => onCardClick(room)}
+            sx={{
+              border: '1px solid #1e8678',
+              boxShadow: '0 4px 15px 0 rgba(13, 144, 98, 0.2), 0 6px 20px 0 rgba(10, 156, 149, 0.19)',
+              cursor: 'pointer',
+              marginBottom: '10px',
+              width: 'calc(50% - 10px)',
+              transition: 'box-shadow 0.3s',
+              '&:hover': {
+                boxShadow: '0 19px 38px rgba(0,0,0,0.50);',
+              },
+            }}
           >
-            <CloseIcon />
-          </Button>
-          {publicRooms.map(room => (
-            <Card
-              key={room._id}
-              variant="outlined"
-              onClick={() => onCardClick(room)}
-              sx={{
-                border: '1px solid #1e8678',
-                boxShadow: '0 19px 38px rgba(0,0,0,0.30);',
-                cursor: 'pointer',
-                marginBottom: '10px',
-                width: '40%',
-                flex: '1 0 40%',
-                transition: 'box-shadow 0.3s',
-                '&:hover': {
-                  boxShadow: '0 19px 38px rgba(0,0,0,0.50);',
-                },
-              }}
-            >
-              <CardContent>
-                <Typography variant="h6">{room.title}</Typography>
-                <Typography variant="body2" color="textSecondary">
-                  Code: {room._id}
-                </Typography>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+            <CardContent>
+              <Typography variant="h6" className="dashboard">{room.title}</Typography>
+              <Typography variant="body2" color="textSecondary">
+                Code: {room._id}
+              </Typography>
+            </CardContent>
+          </Card>
+        ))
       ) : (
-        <div style={{ backgroundColor: 'white', padding: '20px', maxWidth: '800px', margin: 'auto', marginTop: '50px', textAlign: 'center' }}>
-          <Typography variant="body1">No public rooms available.</Typography>
-          <Button onClick={onClose}>Close</Button>
-        </div>
+        <Typography variant="body1" className="dashboard">No public rooms available.</Typography>
       )}
-    </Modal>
+    </div>
   );
 }
 
